@@ -7,7 +7,7 @@ const ITEMS_PER_SCREEN = 15;
 // чтение CSV → массив объектов
 async function fetchCsv() {
   // добавляем "мусорный" параметр, чтобы URL всегда был уникален
-  const url = CSV_URL + `&t=${Date.now()}`;
+  const url = CSV_URL_BASE + `&t=${Date.now()}`;
 
   const res = await fetch(url, {
     cache: "no-store",        // просим браузер не использовать кэш
@@ -218,4 +218,5 @@ async function renderScreen(screenNumber) {
   // каждый раз просто перерисовываем весь экран
   container.innerHTML = items.map(cardTemplate).join("");
 }
+
 
