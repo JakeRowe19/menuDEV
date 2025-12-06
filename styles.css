@@ -29,8 +29,8 @@ html, body {
 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 1.8vh 1.5vw;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 0.6vh 0.5vw;
 }
 
 /* === Карточка === */
@@ -62,8 +62,8 @@ html, body {
   align-items: center;
   text-align: center;
 
-  padding-top: 1vh;
-  padding-bottom: 0.6vh;
+  padding-top: 0.5vh;
+  padding-bottom: 0.2vh;
 
   min-height: 7vh;     /* не меньше */
   max-height: 12vh;    /* не больше */
@@ -72,14 +72,14 @@ html, body {
 
 /* ID */
 .title-id {
-  font-size: 3.3vh;
+  font-size: 3.2vh;
   font-weight: 700;
-  margin-bottom: 1vh;
+  margin-bottom: 0vh;
 }
 
 /* Название */
 .title {
-  font-size: 6.5vh;
+  font-size: 4.2vh;
   font-weight: 700;
   line-height: 1.05;
   white-space: normal;
@@ -93,10 +93,10 @@ html, body {
 
 .divider {
   grid-row: 2;
-  height: 0.4vh;
+  height: 0.2vh;
   background: #000;
   width: 100%;
-  margin: 1vh 0;
+  margin: 0.6vh 0;
   flex-shrink: 0;
 }
 
@@ -111,8 +111,8 @@ html, body {
   height: 100%;
   box-sizing: border-box;
 
-  padding-top: 1vh;
-  padding-bottom: 1vh;
+  padding-top: 0.3vh;
+  padding-bottom: 0.1vh;
 }
 
 /* страна / тип / цена / крепость */
@@ -135,7 +135,7 @@ html, body {
 
 /* цена */
 .price {
-  font-size: 4vh;
+  font-size: 5.1vh;
   font-weight: 900;
 }
 
@@ -145,7 +145,7 @@ html, body {
   justify-content: flex-end;
 }
 .badge {
-  height: 3.2vh;
+  height: 4.2vh;
 }
 
 /* ===== Состояния ===== */
