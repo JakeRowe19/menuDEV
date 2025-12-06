@@ -6,10 +6,13 @@ const ITEMS_PER_SCREEN = 15;
 
 // чтение CSV → массив объектов
 async function fetchCsv() {
-  // добавляем уникальный параметр, чтобы обойти кэш Google/браузера
-  const url = CSV_URL_BASE + "&_=" + Date.now();
+  // добавляем "мусорный" параметр, чтобы URL всегда был уникален
+  const url = CSV_URL + `&t=${Date.now()}`;
 
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, {
+    cache: "no-store",        // просим браузер не использовать кэш
+  });
+
   const text = await res.text();
 
   const lines = text.trim().split(/\r?\n/);
@@ -27,6 +30,7 @@ async function fetchCsv() {
     return obj;
   });
 }
+
 
 
 
@@ -214,3 +218,4 @@ async function renderScreen(screenNumber) {
   // каждый раз просто перерисовываем весь экран
   container.innerHTML = items.map(cardTemplate).join("");
 }
+
