@@ -9,10 +9,15 @@
   <div id="menu" class="menu-grid"></div>
 
   <script src="menu.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      renderScreen(1); // экран 1
-    });
-  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // первый рендер
+    renderScreen(1);
+    // дальше: раз в 5 секунд проверяем csv
+    setInterval(() => {
+      renderScreen(1);
+    }, 15000); // 5000 мс = 5 секунд
+  });
+</script>
 </body>
 </html>
