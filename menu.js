@@ -1,32 +1,15 @@
 // ----- НАСТРОЙКИ -----
 
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcUeH0R2aQgSWh0hhjkHEF2j3vSmWaFn-vpEvdl3wmgZavajJXslZR7zB8a8Wk3r2cKkXolnIXrq14/pub?gid=0&single=true&output=csv";
+const CSV_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcUeH0R2aQgSWh0hhjkHEF2j3vSmWaFn-vpEvdl3wmgZavajJXslZR7zB8a8Wk3r2cKkXolnIXrq14/pub?output=csv";
 
 const ITEMS_PER_SCREEN = 15;
 
-// соответствие beertype -> картинка бейджа
-const BEERTYPE_BADGE = {
-  "beertype=dark":    "beertype=dark.png",
-  "beertype=darkNF":  "beertype=darkNF.png",
-  "beertype=light":   "beertype=light.png",
-  "beertype=lightNF": "beertype=lightNF.png",
-  "beertype=other":   "beertype=other.png",
-  "beertype=n/a":     "nonalc.png"
-};
-// ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
-
-function stripQuotes(str) {
-  return str.replace(/^"+|"+$/g, "").replace(/""/g, '"').trim();
-}
-
-function sanitize(value) {
-  if (value == null) return "";
-  return stripQuotes(String(value));
-}
-
 // чтение CSV → массив объектов
 async function fetchCsv() {
-  const res = await fetch(CSV_URL);
+  // добавляем уникальный параметр, чтобы обойти кэш Google/браузера
+  const url = CSV_URL_BASE + "&_=" + Date.now();
+
+  const res = await fetch(url, { cache: "no-store" });
   const text = await res.text();
 
   const lines = text.trim().split(/\r?\n/);
@@ -44,6 +27,40 @@ async function fetchCsv() {
     return obj;
   });
 }
+
+
+
+// соответствие beertype -> картинка бейджа
+const BEERTYPE_BADGE = {
+  "beertype=dark":    "beertype=dark.png",
+  "beertype=darkNF":  "beertype=darkNF.png",
+  "beertype=light":   "beertype=light.png",
+  "beertype=lightNF": "beertype=lightNF.png",
+  "beertype=other":   "beertype=other.png",
+  "beertype=n/a":     "nonalc.png"
+};
+
+// ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
+
+function stripQuotes(str) {
+  if (str == null) return "";
+  let s = String(str);
+
+  // убираем одну пару внешних кавычек
+  if (s.startsWith('"') && s.endsWith('"')) {
+    s = s.slice(1, -1);
+  }
+
+  // заменяем двойные кавычки внутри на одиночные
+  s = s.replace(/""/g, '"');
+
+  return s.trim();
+}
+
+function sanitize(value) {
+  return stripQuotes(value);
+}
+
 
 // ----- МАППИНГ ПОЛЕЙ И СОСТОЯНИЙ -----
 
@@ -70,7 +87,7 @@ function formatSpecs(item) {
   const ogRaw  = Number(item["плотность"]);
   
   const abv = abvRaw ? (abvRaw / 10).toFixed(1) + "%" : "";
-  const og  = ogRaw ? ogRaw + "°P" : "";
+  const og  = ogRaw ? ogRaw + "oG" : "";
 
   return [abv, og].filter(Boolean).join(" ");
 }
@@ -78,10 +95,36 @@ function formatSpecs(item) {
 
 // Цена
 function formatPrice(item) {
-  const p = item["Цена₽"] || item["Цена"] || "";
-  if (!p) return "";
-  return p + "₽";
+  // 1. Базовая цена из столбца "цена"
+  const rawBase = item["цена"] || item["Цена"] || "";
+
+  // оставляем только цифры и точку
+  const base = (() => {
+    const cleaned = String(rawBase)
+      .replace(",", ".")
+      .replace(/[^0-9.]/g, "");
+    const n = parseFloat(cleaned);
+    return isNaN(n) ? NaN : n;
+  })();
+
+  if (isNaN(base)) return "";
+
+  // 2. Читаем столбец "Наличие" и вытаскиваем из него скидку в процентах
+  const availability = (item["Наличие"] || "").toLowerCase();
+
+  let discountPercent = 0;
+  const match = availability.match(/(\d+)\s*%/); // ищем число перед %
+  if (match) {
+    discountPercent = Number(match[1]); // "скидка 15%" -> 15
+  }
+
+  // 3. Считаем цену со скидкой (если скидки нет, discountPercent = 0)
+  const coef = 1 - discountPercent / 100;
+  const final = Math.round(base * coef);
+
+  return final + "₽";
 }
+
 
 
 // Страна
@@ -117,18 +160,16 @@ function cardTemplate(item) {
   const price   = formatPrice(item);     // "120₽"
   const country = getCountry(item);
   const badge   = getBadge(item);        // <img ...> или ""
-
   const isPending = state === "pending";
 
   return `
     <div class="beer-card state-${state}">
-      <div class="card-top">
-        <div class="title-id">${id}</div>
-        <div class="title">${name}</div>
-      </div>
-
-      <div class="card-bottom">
-        <div class="divider"></div>
+        <div class="card-top">
+          <div class="title-id">${id}</div>
+          <div class="title">${name}</div>
+        </div>
+        <div class="card-bottom">
+          <div class="divider"></div>
 
         ${
           isPending
@@ -147,6 +188,7 @@ function cardTemplate(item) {
             `
         }
       </div>
+    </div>
     </div>
   `;
 }
@@ -169,5 +211,6 @@ async function renderScreen(screenNumber) {
   const end   = start + ITEMS_PER_SCREEN;
   const items = allItems.slice(start, end);
 
+  // каждый раз просто перерисовываем весь экран
   container.innerHTML = items.map(cardTemplate).join("");
 }
