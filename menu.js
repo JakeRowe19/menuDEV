@@ -41,7 +41,9 @@ const BEERTYPE_BADGE = {
   "beertype=light":   "beertype=light.png",
   "beertype=lightNF": "beertype=lightNF.png",
   "beertype=other":   "beertype=other.png",
-  "beertype=n/a":     "nonalc.png"
+  "beertype=n/a":     "nonalc.png",
+  "beertype=wheat":   "beertype=wheat.png",
+  "beertype=cider":   "beertype=cider.png"
 };
 
 // ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
@@ -218,5 +220,6 @@ async function renderScreen(screenNumber) {
   // каждый раз просто перерисовываем весь экран
   container.innerHTML = items.map(cardTemplate).join("");
 }
+
 
 
