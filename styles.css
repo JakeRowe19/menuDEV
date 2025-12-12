@@ -81,7 +81,7 @@ html, body {
 .title {
   font-size: 4.2vh;
   font-weight: 700;
-  line-height: 2.05;
+  line-height: 0.6;
   white-space: normal;
   overflow-wrap: break-word;
   word-break: break-word;
