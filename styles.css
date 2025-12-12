@@ -64,11 +64,10 @@ html, body {
 
   padding-top: 0.5vh;
   padding-bottom: 1vh;
-  margin-bottom: 0.3vh;
 
   min-height: 7vh;     /* не меньше */
   max-height: 13vh;    /* не больше */
-  overflow: hidden;    /* название не вылезает */
+  overflow: visible;    /* название не вылезает */
 }
 
 /* ID */
@@ -176,6 +175,7 @@ html, body {
   font-weight: 700;
   text-align: center;
 }
+
 
 
 
