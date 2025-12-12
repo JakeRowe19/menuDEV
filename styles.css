@@ -67,7 +67,7 @@ html, body {
 
   min-height: 7vh;     /* не меньше */
   max-height: 13vh;    /* не больше */
-  overflow: visible;    /* название не вылезает */
+  overflow: hidden;    /* название не вылезает */
 }
 
 /* ID */
@@ -81,7 +81,7 @@ html, body {
 .title {
   font-size: 4.2vh;
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 2.05;
   white-space: normal;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -175,6 +175,7 @@ html, body {
   font-weight: 700;
   text-align: center;
 }
+
 
 
 
