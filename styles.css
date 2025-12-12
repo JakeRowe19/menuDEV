@@ -74,7 +74,7 @@ html, body {
 .title-id {
   font-size: 3.2vh;
   font-weight: 700;
-  margin-bottom: 0.2vh;
+  margin-bottom: 0vh;
 }
 
 /* Название */
@@ -86,6 +86,7 @@ html, body {
   overflow-wrap: break-word;
   word-break: break-word;
   max-width: 100%;
+  margin-bottom: 0.2vh;
 }
 
 
@@ -174,6 +175,7 @@ html, body {
   font-weight: 700;
   text-align: center;
 }
+
 
 
 
