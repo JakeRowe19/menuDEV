@@ -64,6 +64,7 @@ html, body {
 
   padding-top: 0.5vh;
   padding-bottom: 1vh;
+  margin-bottom: 0.3vh;
 
   min-height: 7vh;     /* не меньше */
   max-height: 13vh;    /* не больше */
@@ -175,6 +176,7 @@ html, body {
   font-weight: 700;
   text-align: center;
 }
+
 
 
 
