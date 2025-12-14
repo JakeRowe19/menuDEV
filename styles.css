@@ -177,6 +177,12 @@ html, body {
   color: #c00000;       /* красный */
 }
 
+.state-order .card-bottom {
+  justify-content: flex-start;   /* не растягиваем вниз */
+  padding-top: 0.6vh;            /* ближе к divider */
+}
+
+
 .order-text {
   font-size: 2.8vh;
   font-weight: 600;
@@ -184,8 +190,16 @@ html, body {
   line-height: 1.2;
 }
 
+.state-order .order-text {
+  margin-top: 0.4vh;             /* прижимаем вверх */
+}
 
 
+/* опускаем верхний текст у order-карточки */
+.state-order .card-top {
+  padding-top: 2.5vh;   /* опускаем вниз */
+  padding-bottom: 0.6vh;
+}
 
 
 
