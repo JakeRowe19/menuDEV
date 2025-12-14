@@ -156,12 +156,19 @@ html, body {
 }
 
 /* === В ПУТИ === */
+/*  Для картинки в пути
+  .price-img {
+    height: 5.1vh;
+    width: auto;
+    display: block;
+*/
 
-.price-img {
-  height: 5.1vh;   /* как размер цены */
-  width: auto;
-  display: block;
+.price-pending {
+  font-size: 3.6vh;     /* чуть меньше цены, выглядит аккуратно */
+  font-weight: 700;
+  color: #c00000;       /* красный */
 }
+
 
 
 
