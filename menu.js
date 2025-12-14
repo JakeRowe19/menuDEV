@@ -215,12 +215,21 @@ async function renderScreen(screenNumber) {
 
   const start = (screenNumber - 1) * ITEMS_PER_SCREEN;
   const end   = start + ITEMS_PER_SCREEN;
-  const items = allItems.slice(start, end);
+  let items   = allItems.slice(start, end);
 
-  // каждый раз просто перерисовываем весь экран
-  container.innerHTML = items.map(cardTemplate).join("");
+  // 👉 если это ПОСЛЕДНИЙ экран — добавляем спец-карточку
+  const totalScreens = Math.ceil(allItems.length / ITEMS_PER_SCREEN);
+  if (screenNumber === totalScreens) {
+    items.push({ __custom: "order" });
+  }
+
+  container.innerHTML = items.map(item => {
+    if (item.__custom === "order") {
+      return orderCardTemplate();
+    }
+    return cardTemplate(item);
+  }).join("");
 }
-
 
 
 
