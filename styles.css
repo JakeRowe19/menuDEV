@@ -179,7 +179,7 @@ html, body {
 
 .state-order .card-bottom {
   justify-content: flex-start;   /* не растягиваем вниз */
-  padding-top: 0.6vh;            /* ближе к divider */
+  padding-top: 1.5vh;            /* ближе к divider */
 }
 
 
@@ -200,6 +200,7 @@ html, body {
   padding-top: 2.5vh;   /* опускаем вниз */
   padding-bottom: 0.6vh;
 }
+
 
 
 
