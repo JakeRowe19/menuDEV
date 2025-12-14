@@ -101,7 +101,7 @@ html, body {
 
 .divider {
   grid-row: 2;
-  height: 0.2vh;
+  height: 2px;
   background: #000;
   width: 100%;
   margin: 0.6vh 0;
@@ -201,6 +201,7 @@ html, body {
   padding-top: 2.5vh;   /* опускаем вниз */
   padding-bottom: 0.6vh;
 }
+
 
 
 
