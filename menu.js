@@ -160,17 +160,17 @@ function getBadge(item) {
 // ----- ШАБЛОН КАРТОЧКИ -----
 
 function cardTemplate(item) {
-  const state   = getState(item);        // instock / sale / pending ...
+  const state   = getState(item);
   const id      = getId(item);
   const name    = getName(item);
-  const specs   = formatSpecs(item);     // "4.2% 12oG"
+  const specs   = formatSpecs(item);
   const country = getCountry(item);
-  const badge   = getBadge(item);        // <img ...> или ""
-  const price   = formatPrice(item);     // "120₽"
+  const badge   = getBadge(item);
+  const price   = formatPrice(item);
 
   const priceHtml =
     state === "pending"
-      ? `<img class="price-img" src="img/notinstock.png" alt="Нет в наличии">`
+      ? `<span class="price-pending">В пути</span>`
       : `<span class="price">${price}</span>`;
 
   return `
@@ -200,6 +200,8 @@ function cardTemplate(item) {
 
 
 
+
+
 // ----- РЕНДЕР ЭКРАНА -----
 
 async function renderScreen(screenNumber) {
@@ -218,6 +220,7 @@ async function renderScreen(screenNumber) {
   // каждый раз просто перерисовываем весь экран
   container.innerHTML = items.map(cardTemplate).join("");
 }
+
 
 
 
