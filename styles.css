@@ -177,6 +177,14 @@ html, body {
   color: #c00000;       /* красный */
 }
 
+.order-text {
+  font-size: 2.8vh;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+
 
 
 
