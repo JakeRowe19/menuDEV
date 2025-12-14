@@ -163,41 +163,36 @@ function cardTemplate(item) {
   const state   = getState(item);        // instock / sale / pending ...
   const id      = getId(item);
   const name    = getName(item);
-  const specs   = formatSpecs(item);     // "4.2% 12°P"
-  const priceHtml = (state === "pending")
-  ? `<img class="price-img" src="img/notinstock.png" alt="Нет в наличии">`
-  : `<span class="price">${formatPrice(item)}</span>`;     // "120₽"
+  const specs   = formatSpecs(item);     // "4.2% 12oG"
   const country = getCountry(item);
   const badge   = getBadge(item);        // <img ...> или ""
-  const isPending = state === "pending";
+  const price   = formatPrice(item);     // "120₽"
+
+  const priceHtml =
+    state === "pending"
+      ? `<img class="price-img" src="img/notinstock.png" alt="Нет в наличии">`
+      : `<span class="price">${price}</span>`;
 
   return `
     <div class="beer-card state-${state}">
-        <div class="card-top">
-          <div class="title-id">${id}</div>
-          <div class="title">${name}</div>
-        </div>
-        <div class="card-bottom">
-          <div class="divider"></div>
-
-        ${
-          isPending
-            ? `
-              <div class="pending-text">В пути</div>
-            `
-            : `
-              <div class="info-line">
-                <span class="country">${country}</span>
-                ${badge ? `<span class="badge-wrap">${badge}</span>` : ""}
-              </div>
-              <div class="info-line">
-                <span class="abv">${specs}</span>
-                ${priceHtml}
-              </div>
-            `
-        }
+      <div class="card-top">
+        <div class="title-id">${id}</div>
+        <div class="title">${name}</div>
       </div>
-    </div>
+
+      <div class="card-bottom">
+        <div class="divider"></div>
+
+        <div class="info-line">
+          <span class="country">${country}</span>
+          ${badge ? `<span class="badge-wrap">${badge}</span>` : ""}
+        </div>
+
+        <div class="info-line">
+          <span class="abv">${specs}</span>
+          ${priceHtml}
+        </div>
+      </div>
     </div>
   `;
 }
@@ -223,6 +218,7 @@ async function renderScreen(screenNumber) {
   // каждый раз просто перерисовываем весь экран
   container.innerHTML = items.map(cardTemplate).join("");
 }
+
 
 
 
