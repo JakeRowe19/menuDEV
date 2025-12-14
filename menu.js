@@ -164,7 +164,9 @@ function cardTemplate(item) {
   const id      = getId(item);
   const name    = getName(item);
   const specs   = formatSpecs(item);     // "4.2% 12°P"
-  const price   = formatPrice(item);     // "120₽"
+  const priceHtml = (state === "pending")
+  ? `<img class="price-img" src="img/notinstock.png" alt="Нет в наличии">`
+  : `<span class="price">${formatPrice(item)}</span>`;     // "120₽"
   const country = getCountry(item);
   const badge   = getBadge(item);        // <img ...> или ""
   const isPending = state === "pending";
@@ -190,7 +192,7 @@ function cardTemplate(item) {
               </div>
               <div class="info-line">
                 <span class="abv">${specs}</span>
-                <span class="price">${price}</span>
+                ${priceHtml}
               </div>
             `
         }
@@ -221,6 +223,7 @@ async function renderScreen(screenNumber) {
   // каждый раз просто перерисовываем весь экран
   container.innerHTML = items.map(cardTemplate).join("");
 }
+
 
 
 
