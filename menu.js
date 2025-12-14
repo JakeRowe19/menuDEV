@@ -198,6 +198,25 @@ function cardTemplate(item) {
 }
 
 
+function orderCardTemplate() {
+  return `
+    <div class="beer-card state-order">
+      <div class="card-top">
+        <div class="title">Пиво под заказ</div>
+      </div>
+
+      <div class="card-bottom">
+        <div class="divider"></div>
+
+        <div class="info-line" style="justify-content:center; text-align:center;">
+          <span class="order-text">
+            Можете заказать у продавца
+          </span>
+        </div>
+      </div>
+    </div>
+  `;
+}
 
 
 
@@ -230,6 +249,7 @@ async function renderScreen(screenNumber) {
     return cardTemplate(item);
   }).join("");
 }
+
 
 
 
