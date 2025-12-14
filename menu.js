@@ -232,23 +232,20 @@ async function renderScreen(screenNumber) {
   // сортируем по id
   allItems.sort((a, b) => Number(a["id"]) - Number(b["id"]));
 
+  // +1 элемент: спец-карточка в конце
+  const itemsWithOrder = [...allItems, { __custom: "order" }];
+
   const start = (screenNumber - 1) * ITEMS_PER_SCREEN;
   const end   = start + ITEMS_PER_SCREEN;
-  let items   = allItems.slice(start, end);
-
-  // 👉 если это ПОСЛЕДНИЙ экран — добавляем спец-карточку
-  const totalScreens = Math.ceil(allItems.length / ITEMS_PER_SCREEN);
-  if (screenNumber === totalScreens) {
-    items.push({ __custom: "order" });
-  }
+  const items = itemsWithOrder.slice(start, end);
 
   container.innerHTML = items.map(item => {
-    if (item.__custom === "order") {
-      return orderCardTemplate();
-    }
+    if (item.__custom === "order") return orderCardTemplate();
     return cardTemplate(item);
   }).join("");
 }
+
+
 
 
 
