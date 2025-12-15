@@ -58,6 +58,7 @@ const BEERTYPE_BADGE = {
 
 const ACCENT_BADGE = {
   "новинка": "accent-new.png",
+  "медаль": "medal.png",
   "хит": "accent-hit.png"
 };
 
@@ -260,6 +261,7 @@ async function renderScreen(screenNumber) {
     return cardTemplate(item);
   }).join("");
 }
+
 
 
 
