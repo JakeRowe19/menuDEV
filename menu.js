@@ -31,6 +31,15 @@ async function fetchCsv() {
   });
 }
 
+function getAccent(item) {
+  const raw = (item["Акцент"] || "").trim().toLowerCase();
+  if (!raw || raw === "-") return "";
+
+  const file = ACCENT_BADGE[raw];
+  if (!file) return "";
+
+  return `<img class="accent-badge" src="img/${file}" alt="${raw}">`;
+}
 
 
 
@@ -45,6 +54,11 @@ const BEERTYPE_BADGE = {
   "beertype=wheat":   "beertype=wheat.png",
   "beertype=cider":   "beertype=cider.png",
   "beertype=mead":   "beertype=mead.png"
+};
+
+const ACCENT_BADGE = {
+  "новинка": "accent-new.png",
+  "хит": "accent-hit.png"
 };
 
 // ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
@@ -160,6 +174,7 @@ function getBadge(item) {
 // ----- ШАБЛОН КАРТОЧКИ -----
 
 function cardTemplate(item) {
+  const accent  = getAccent(item);
   const state   = getState(item);
   const id      = getId(item);
   const name    = getName(item);
@@ -175,6 +190,7 @@ function cardTemplate(item) {
 
   return `
     <div class="beer-card state-${state}">
+      ${accent}
       <div class="card-top">
         <div class="title-id">${id}</div>
         <div class="title">${name}</div>
@@ -244,6 +260,7 @@ async function renderScreen(screenNumber) {
     return cardTemplate(item);
   }).join("");
 }
+
 
 
 
