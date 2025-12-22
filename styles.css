@@ -204,6 +204,21 @@ html, body {
 
 
 
+.beer-card {
+  position: relative; /* нужно для абсолютного бейджа */
+}
+
+/* картинка-акцент в правом верхнем углу */
+.accent-badge {
+  position: absolute;
+  top: 0.8vh;
+  right: 0.8vh;
+  height: 4.2vh;      /* можно подогнать */
+  width: auto;
+  z-index: 5;
+  pointer-events: none; /* чтобы не мешала кликам */
+}
+
 
 
 
