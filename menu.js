@@ -245,6 +245,11 @@ async function renderScreen(screenNumber) {
   if (!container) return;
 
   const allItems = await fetchCsv();
+  const isWinter = allItems.some(it =>
+  String(it["Сезон"] || "").trim().toLowerCase() === "зима"
+);
+
+document.body.classList.toggle("theme-winter", isWinter);
 
   // сортируем по id
   allItems.sort((a, b) => Number(a["id"]) - Number(b["id"]));
@@ -261,6 +266,7 @@ async function renderScreen(screenNumber) {
     return cardTemplate(item);
   }).join("");
 }
+
 
 
 
