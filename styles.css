@@ -220,6 +220,26 @@ html, body {
 }
 
 
+body.theme-winter .divider {
+  position: relative;
+  overflow: visible;
+}
+
+/* гирлянда поверх линии */
+body.theme-winter .divider::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -0.9vh;              /* слегка над линией */
+  width: 100%;
+  height: 2.6vh;
+
+  background: url("img/garland-divider.png") repeat-x;
+  background-size: auto 100%;
+
+  pointer-events: none;
+  z-index: 2;
+}
 
 
 
