@@ -237,7 +237,7 @@ body.theme-winter .divider::after {
 
   --garland-repeat: 3;                   /* ← подбираешь 2/3/4/5 */
 
-  background-image: url("img/garland-divider.png");
+  background-image: url("img/garland-divider2.png");
   background-repeat: repeat-x;
   background-size: calc(100% / var(--garland-repeat)) 100%;  /* ← ВАЖНО */
   background-position: left center;
@@ -245,6 +245,7 @@ body.theme-winter .divider::after {
   pointer-events: none;
   z-index: 2;
 }
+
 
 
 
