@@ -54,6 +54,7 @@ const BEERTYPE_BADGE = {
   "beertype=other":   "beertype=other.png",
   "beertype=n/a":     "nonalc.png",
   "beertype=wheat":   "beertype=wheat.png",
+  "beertype=wheatNF":   "beertype=wheatNF.png",
   "beertype=cider":   "beertype=cider.png",
   "beertype=mead":   "beertype=mead.png"
 };
@@ -268,6 +269,7 @@ async function renderScreen(screenNumber) {
     return cardTemplate(item);
   }).join("");
 }
+
 
 
 
